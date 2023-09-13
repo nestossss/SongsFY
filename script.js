@@ -6,31 +6,28 @@ const base64Credentials = btoa(credentials);
 
 /* ---------- TOKEN DE ACESSO --------------*/
 
-async function getToken() {
-  var authOptions = {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Basic ' + base64Credentials,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: 'grant_type=client_credentials'
-  };
 
-  try {
-    const response = await fetch('https://accounts.spotify.com/api/token', authOptions);
-    const token = await response.json();
-    return token.access_token;
-  } catch (error) {
-    console.error('Erro token (provavelmente sem net)', error);
-    throw error;
-  }
+var authOptions = {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Basic ' + base64Credentials,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: 'grant_type=client_credentials'
+};
+try {
+  const response = fetch('https://accounts.spotify.com/api/token', authOptions);
+  const token = response.json();
+} catch (error) {
+  console.error('Erro token (provavelmente sem net)', error);
+  throw error;
 }
+const token = getToken();
 
 /* ---------- GET SEARCH ---------- */
 
 async function search(){
   try{
-    const token = await getToken();
     var apiUrlS = `https://api.spotify.com/v1/search?q=${pesquisa}&type=track&include_external=audio`;
     var authOptions = {
       headers: {
@@ -94,7 +91,6 @@ function escolha(selecionado){
 
 async function recommendations(){
   try {
-    const token = await getToken();
     var apiUrlR = `https://api.spotify.com/v1/recommendations?seed_tracks=${trackSeed}`;
     var authOptions = {
       headers: {
