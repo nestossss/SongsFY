@@ -1,3 +1,6 @@
+
+var client_id = '636dc7a277084df097b1a5f8e6fc2df6';
+var client_secret = '2420e0a7746742ca8b373fdbd9cfab2f';
 const credentials = `${client_id}:${client_secret}`;
 const base64Credentials = btoa(credentials);
 
