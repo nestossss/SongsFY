@@ -1,6 +1,7 @@
-
 var client_id = '636dc7a277084df097b1a5f8e6fc2df6';
 var client_secret = '2420e0a7746742ca8b373fdbd9cfab2f';
+//Sera que da pra deixar esses dois assim msm? pq na teoria nao devia ta expostokkkk
+
 const credentials = `${client_id}:${client_secret}`;
 const base64Credentials = btoa(credentials);
 
@@ -27,7 +28,7 @@ async function getToken() {
 }
 
 /* ---------- GET SEARCH ---------- */
-
+var resultados;
 async function search(){
   try{
     const token = await getToken();
@@ -41,33 +42,60 @@ async function search(){
     resultados = await response.json();
     return resultados;
   } catch(error) {
-    console.error('espere', error);
+    console.error('erro search', error);
   }
 }
 
-/* ---------- PESQUISA ---------- */
+/* ---------- pesquisa ---------- */
 
 let pesquisa;
 const inputPesquisa = document.getElementById('txtBusca');
 
+setInterval( () =>{
+  if (!inputPesquisa.value)
+  {
+    for (var i = 0; i <= 5; i++)
+    {
+      document.getElementById('resultado'+i).style.display = 'none';
+    }
+  }
+}, 500);
+
 inputPesquisa.addEventListener('input', async () => {
-    if (inputPesquisa.value)
+    if (!inputPesquisa.value)
+    {
+      for (var i = 0; i <= 5; i++)
+      {
+        document.getElementById('resultado'+i).style.display = 'none';
+      } 
+    }
+    else
     {
       pesquisa = inputPesquisa.value;
-      var resultados = await search();
-        for (var i = 0; i <= 5; i++)
-        {
-        var divResultados = document.getElementById('resultado'+i);
-        if (resultados.tracks.items.length >= 5)
-          divResultados.innerHTML = resultados['tracks'].items[i].name;
-        }
+      await search();
+      for (var i = 0; i <= 5; i++)
+      {
+        var divResultado = document.getElementById('resultado'+i);
+        divResultado.style = 'block';
+        divResultado.innerHTML = '';
+
+        var fotoMusica = document.createElement('img');
+        fotoMusica.id = 'resultado-img'+i;
+        fotoMusica.src = resultados['tracks'].items[i].album.images[2].url;
+
+        var nomeMusica = document.createElement('p');
+        nomeMusica.id = 'resultado-nome'+i;
+        nomeMusica.innerHTML = resultados['tracks'].items[i].name;
+
+        divResultado.appendChild(fotoMusica);
+        divResultado.appendChild(nomeMusica);
+      }
     }
 });
 
-/* ----------- ESCOLHA ----------- */
+/* ----------- escolha ----------- */
 
 var trackSeed;
-
 function escolha(selecionado){
   var track = resultados.tracks.items[selecionado];
   var artists = [];
@@ -76,15 +104,16 @@ function escolha(selecionado){
   const albumSelecionado = document.getElementById('selecionado-album');
   const artistasSelecionado = document.getElementById('selecionado-artistas');
 
-  var trackInfo = [track.name, track.album.name, artists]
   trackSeed = track.id;
+  var trackInfo = [track.name, track.album.name, artists]
+
   for (var i = 0; i < track.artists.length; i++)
   {
     artists.push(track.artists[i].name);
   }
   nomeSelecionado.innerHTML = 'Nome: ' + track.name;
   albumSelecionado.innerHTML = 'Álbum: ' + track.album.name;
-  artistasSelecionado.innerHTML = 'Artistas: ' +artists;
+  artistasSelecionado.innerHTML = 'Artistas: ' + artists;
 
   console.log(trackInfo);
   console.log(track);
@@ -115,7 +144,7 @@ async function recommendations(){
     }
 
   } catch (error) {
-    console.error('esperar', error);
+    console.error('erro recomendação', error);
   }
 }
 
@@ -124,9 +153,11 @@ botao.addEventListener('click', () =>{
   recommendations();
 });
 
-/* sla meio q um raschunho * /
+/* ------------ sla meio q um raschunho  -------------*/
 
-// Se der tempo diferenciar single de album, pra aparecer escrito "Single" ao inves do nome do album
+/*
+  
+*/
 
-
-/* --- const token = await getToken(); --- */
+// colocar foto das musica,
+// se der tempo ver se da p diferenciar single de album
