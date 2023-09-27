@@ -3,6 +3,24 @@
     box-sizing: border-box;
 }
 header{
-    background: #1c1c1c;
-    height: 60px;
+    display: flex;
+    align-items: center;
+    background: #2e2e2e;
+    height: 10vh;
+    min-height: 20px;
+}
+h1{
+    margin-left: 5%;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+}
+body{
+    background-color: #272727;
+    font-family: 'Epilogue', sans-serif;
+}
+#bemvindo{
+    background-color: #343a30;
+    height: 80vh;
+    min-height: 120px;
 }
