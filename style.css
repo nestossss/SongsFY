@@ -1,26 +1,84 @@
 *{
     margin:0;
     box-sizing: border-box;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 500;
+}
+input:not(:focus){
+    box-shadow: none;
+    border: none;
+}
+input[type="text"]:focus{
+    box-shadow: none;
+    border: none;
+}
+button{
+    box-shadow: none;
+    border: none;
 }
 header{
     display: flex;
     align-items: center;
-    background: #2e2e2e;
+    background: #292929;
     height: 10vh;
     min-height: 20px;
 }
 h1{
     margin-left: 5%;
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 700;
     color: white;
 }
 body{
-    background-color: #272727;
-    font-family: 'Epilogue', sans-serif;
+    background-color: #1a1a1a;
 }
 #bemvindo{
-    background-color: #343a30;
+    background-color: #777777;
     height: 80vh;
     min-height: 120px;
+}
+#txtBusca{
+    background-color: #242424;
+    box-shadow: none;
+    border-radius: 25px;
+    padding: 1em 3em 1em 3em;
+    width: 25vw;
+    margin-bottom: 5vw;
+    margin-left: 0.6em;
+    color: white;
+}
+#txtBusca:hover{
+    background-color: #272727;
+}
+#txtBusca[type="text"]:focus{
+    border: 1px solid #777777;
+    box-shadow: none;
+}
+
+/*  ---------- GRID BUSCA ---------- */
+#recomendacoes{
+    padding: 6vw 8vw 6vw 8vw;
+}
+#divBusca{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 5vw;
+}
+.resultados{
+    display: flex;
+    background-color: #1a1a1a;
+    align-items: center;
+    border-radius: 4px;
+    padding: 1.2em;
+}
+.resultados:hover{
+    background-color: #2a2a2a;
+    cursor: pointer;
+}
+.resultados img{
+    height: 4em;
+}
+.resultados p{
+    color: rgb(189, 189, 189);
 }

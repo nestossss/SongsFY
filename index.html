@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <title> um nome pra site de musica</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Um nome pra site de musica</title>
 </head>
 <body>
     <header>
@@ -21,19 +22,19 @@
         <h2>so teste</h2>
         <h2>so teste</h2>
     </section>
-    <main id="site">
+    <main id="principal">
         <div id="recomendacoes">
-            <div id="divBusca">
-                <input type="text" id="txtBusca" placeholder="Buscar..."/>
-                <br>
-                <br>
 
+            <input type="text" id="txtBusca" placeholder="Buscar..."/>
+            <div id="divBusca">
                 <button class="resultados" id="resultado0" onclick="escolha(0)"></button>
                 <button class="resultados" id="resultado1" onclick="escolha(1)"></button>
                 <button class="resultados" id="resultado2" onclick="escolha(2)"></button>
                 <button class="resultados" id="resultado3" onclick="escolha(3)"></button>
                 <button class="resultados" id="resultado4" onclick="escolha(4)"></button>
-                <button class="resultados" id="resultado5" onclick="escolha(5)"></button> 
+                <button class="resultados" id="resultado5" onclick="escolha(5)"></button>
+                <button class="resultados" id="resultado6" onclick="escolha(6)"></button>  
+                <button class="resultados" id="resultado7" onclick="escolha(7)"></button> 
             </div>
 
             <div id="selecionado">
@@ -41,12 +42,9 @@
                 <p class ="selecionado-teste" id="selecionado-album"></p>
                 <div class ="selecionado-teste" id="selecionado-artistas"></div>
             </div>
-        <hr>
-        <br>
 
 
             <button id="botao">Clique recomendacao de alguma musica</button>
-            <br>
             <div class="musica" id=musica0></div>
             <div class="musica" id=musica1></div>
             <div class="musica" id=musica2></div>

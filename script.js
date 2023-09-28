@@ -50,11 +50,16 @@ async function search(){
 
 let pesquisa;
 const inputPesquisa = document.getElementById('txtBusca');
+const htmlMain = document.getElementById('principal');
 
-setInterval( () =>{
-  if (!inputPesquisa.value)
+for (var i = 0; i <= 7; i++)
+{
+  document.getElementById('resultado'+i).style.display = 'none';
+}
+setInterval( ()=> {
+  if(!inputPesquisa.value)
   {
-    for (var i = 0; i <= 5; i++)
+    for (var i = 0; i <= 7; i++)
     {
       document.getElementById('resultado'+i).style.display = 'none';
     }
@@ -64,31 +69,37 @@ setInterval( () =>{
 inputPesquisa.addEventListener('input', async () => {
     if (!inputPesquisa.value)
     {
-      for (var i = 0; i <= 5; i++)
+      for (var i = 0; i <= 7; i++)
       {
         document.getElementById('resultado'+i).style.display = 'none';
       } 
     }
     else
     {
+      htmlMain.scrollIntoView({block: "start",  behavior: "smooth" });
       pesquisa = inputPesquisa.value;
       await search();
-      for (var i = 0; i <= 5; i++)
+      for (var i = 0; i <= 7; i++)
       {
-        var divResultado = document.getElementById('resultado'+i);
-        divResultado.style = 'block';
-        divResultado.innerHTML = '';
+        try{
+          document.getElementById('resultado'+i).style.display = 'flex';
+          var divResultado = document.getElementById('resultado'+i);
+          divResultado.innerHTML = '';
 
-        var fotoMusica = document.createElement('img');
-        fotoMusica.id = 'resultado-img'+i;
-        fotoMusica.src = resultados['tracks'].items[i].album.images[2].url;
+          var fotoMusica = document.createElement('img');
+          fotoMusica.id = 'resultado-img'+i;
+          fotoMusica.src = resultados['tracks'].items[i].album.images[2].url;
 
-        var nomeMusica = document.createElement('p');
-        nomeMusica.id = 'resultado-nome'+i;
-        nomeMusica.innerHTML = resultados['tracks'].items[i].name;
+          var nomeMusica = document.createElement('p');
+          nomeMusica.id = 'resultado-nome'+i;
+          nomeMusica.innerHTML = resultados['tracks'].items[i].name;
 
-        divResultado.appendChild(fotoMusica);
-        divResultado.appendChild(nomeMusica);
+          divResultado.appendChild(fotoMusica);
+          divResultado.appendChild(nomeMusica);
+        }
+        catch{
+          document.getElementById('resultado'+i).style.display = 'none';
+        }
       }
     }
 });
