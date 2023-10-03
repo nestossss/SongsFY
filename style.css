@@ -2,7 +2,17 @@
     margin:0;
     box-sizing: border-box;
     font-family: 'Epilogue', sans-serif;
-    font-weight: 500;
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+a, abbr{
+    text-decoration: none;
 }
 input:not(:focus){
     box-shadow: none;
@@ -12,7 +22,7 @@ input[type="text"]:focus{
     box-shadow: none;
     border: none;
 }
-button{
+button, a{
     box-shadow: none;
     border: none;
 }
@@ -30,12 +40,8 @@ h1{
     color: white;
 }
 body{
-    background-color: #1a1a1a;
-}
-#bemvindo{
-    background-color: #777777;
-    height: 80vh;
-    min-height: 120px;
+    background-color: #0a0a0a;
+    height: fit-content;
 }
 #txtBusca{
     background-color: #242424;
@@ -43,8 +49,8 @@ body{
     border-radius: 25px;
     padding: 1em 3em 1em 3em;
     width: 25vw;
-    margin-bottom: 5vw;
-    margin-left: 0.6em;
+    margin-bottom: 5vh;
+    margin-left: 5vw;
     color: white;
 }
 #txtBusca:hover{
@@ -54,31 +60,237 @@ body{
     border: 1px solid #777777;
     box-shadow: none;
 }
+/*  ---------- INTRO ---------- */
+#intro{
+    display: flex;
+    justify-content: center;
+    padding-left: 5%;
+    flex-direction: column;
+    width: 100%;
+    height: 50vh;
+    min-height: 250px;
+    color:#bdbdbd;
+}
+#intro ol{
+    font-size: 1.6em;
+    list-style:disc;
+    display: flex;
+    height: 75%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 
 /*  ---------- GRID BUSCA ---------- */
-#recomendacoes{
-    padding: 6vw 8vw 6vw 8vw;
-}
 #divBusca{
     width: 100%;
     display: grid;
+    column-gap: 2vw ;
     grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+     'selecionado span'
+     'selecionado span'
+     'selecionado span'
+     'selecionado span';
     margin-bottom: 5vw;
+}
+
+#recomendacoes{
+    padding: 4vw 8vw 0vw 8vw;
+    max-width: 1400px;
 }
 .resultados{
     display: flex;
-    background-color: #1a1a1a;
+    color: #bdbdbd;
+    background-color: transparent;
     align-items: center;
     border-radius: 4px;
     padding: 1.2em;
+    transition: 0.2s;
 }
 .resultados:hover{
-    background-color: #2a2a2a;
+    background-color: #141414;
+    color: #57ff57;
     cursor: pointer;
+    transition: 0.1s;
 }
 .resultados img{
-    height: 4em;
+    height: 4.6em;
 }
-.resultados p{
-    color: rgb(189, 189, 189);
+.resultados-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.6em 1em 0.6em 1em;
+    height: 100%;
+    text-align: left;
+}
+.resultado-nome{
+    font-size: 17px;
+}
+
+#selecionado{
+    height: 100%;
+    width: 100%;
+    display: none;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: #141414;
+    border-radius: 6px;
+    grid-area: selecionado;
+}
+#selecionado-info{
+    display: flex;
+    padding: 5%;
+    width: 100%;
+}
+#selecionado-img{
+    height: 12em;
+    border-radius: 6px;
+    margin-right: 5%;
+}
+#selecionado-texto{
+    padding: 1em 0em 1em 0em;
+    height: 10em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(216, 216, 216);
+}
+#selecionado-texto h2, #selecionado-texto h2 abbr{
+    user-select:text;
+    font-weight: 800;
+    width: 20vw;
+    font-size: 1.4rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+#selecionado-texto p, #selecionado-texto p abbr{
+    user-select:text;
+    width: 20vw;
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+#selecionado-botoes{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height:40%;
+}
+.selecionado-botao{
+    background-color: #141414;
+    border: 1px solid white;
+    color: white;
+    font-weight: 400;
+    border-radius: 30px;
+    height: 38%;
+    width: 25%;
+    cursor: pointer;
+    transition: 0.5s;
+}
+#link-spotify button{
+    background-color: #141414;
+    font-weight: 400;
+    border-radius: 30px;
+    color: white;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: 0.5s;
+}
+#link-spotify button:hover, .selecionado-botao:hover{
+    border-color: #57ff57;
+    color: #57ff57;
+    transition: 0.2s;
+}
+
+/*----- sem resuoltado ------*/
+
+#sem-resultado{
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+#sem-resultado img{
+    margin-top: 1.8em;
+    width: 15%;
+}
+#sem-resultado p{
+    font-size: 36px;
+    margin-top: 1.8em;
+    font-weight: 400;
+    color: #bdbdbd;
+}
+
+/*----- recomendação ------*/
+
+#lista-recomendacoes{
+    display: none;
+    flex-direction: column;
+    color: white;
+}
+#lista-recomendacoes h2{
+    margin-bottom: 8vh;
+    font-size: 28px;
+}
+#recomendacao-inicio{
+    display: flex;
+    justify-content: space-between;
+}
+#voltar{
+    color: white;
+    margin-top: 4px;
+    margin-right: 4px;
+    font-size: 45px;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    cursor: pointer;
+}
+#grid-recomendacao{
+    display: grid;
+    row-gap: 1em;
+    column-gap: 0.4em;
+    grid-template-columns: 1fr 1fr;
+}
+.recomendacao{
+    border-radius: 4px;
+    width: 100%;
+    display: flex;
+    color: #e6e6e6;
+}
+.recomendacao-info{
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    padding: 0.4em;
+    margin-left: 0.6em;
+    justify-content: space-between;
+}
+.recomendacao:hover{
+    background-color: #141414;
+    color: #57ff57;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+/* scroll e seleção */
+
+::-webkit-scrollbar{
+    width: 10px;
+    background-color: #202020d2;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #000000;
+    border-radius: 4px;
+}
+::selection{
+    color:#000000;
+    background-color: #e6e6e6;
 }

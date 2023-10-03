@@ -11,22 +11,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Um nome pra site de musica</title>
+    <title>SongsFY - For You</title>
 </head>
 <body>
     <header>
-        <h1>Algum título aqui</h1>
+        <h1>SongsFY</h1>
     </header>
-    <section id="bemvindo">
-        <h2>so teste</h2>
-        <h2>so teste</h2>
-        <h2>so teste</h2>
-    </section>
     <main id="principal">
         <div id="recomendacoes">
 
             <input type="text" id="txtBusca" placeholder="Buscar..."/>
+            <div id="intro">
+                <ol>
+                    <li>Pesquise o nome de uma música</li>
+                    <li>Selecione-a</li>
+                    <li>Confirme a escolha</li>
+                    <li>E confira as recomendações</li>
+                </ol>
+            </div>
+            <div id="sem-resultado">
+                <img src="/imagens/imagem-sem-resultados.png" alt="Desenho de um fantasma fofo e triste com fones de ouvido, segurando um disco">
+                <p>Sem resultados para essa pesquisa</p>
+            </div>
             <div id="divBusca">
+                <div id="selecionado">
+                    <div id="selecionado-info">
+                        <img id="selecionado-img"></img>
+                        <div id="selecionado-texto">
+                            <h2 id="selecionado-titulo"></h2>
+                            <p id="selecionado-artistas"></p>
+                            <p id="selecionado-album"></p>
+                        </div>
+                    </div>
+                    <div id="selecionado-botoes">
+                        <a class="selecionado-botao" id="link-spotify" target="_blank"><button>Ir para spotify</button></a>
+                        <button class="selecionado-botao" id="botao-recomendacao">Confirmar</button>
+                    </div>
+                </div>
                 <button class="resultados" id="resultado0" onclick="escolha(0)"></button>
                 <button class="resultados" id="resultado1" onclick="escolha(1)"></button>
                 <button class="resultados" id="resultado2" onclick="escolha(2)"></button>
@@ -37,28 +58,26 @@
                 <button class="resultados" id="resultado7" onclick="escolha(7)"></button> 
             </div>
 
-            <div id="selecionado">
-                <p class ="selecionado-teste" id="selecionado-nome"></p>
-                <p class ="selecionado-teste" id="selecionado-album"></p>
-                <div class ="selecionado-teste" id="selecionado-artistas"></div>
+            <div id="lista-recomendacoes">
+                <div id="recomendacao-inicio">
+                    <h2>Recomendações</h2>
+                    <button id="voltar">x</button>
+                </div>
+                <div id="grid-recomendacao">
+                    <a class="recomendacao" id=musica0 target="_blank"></a>
+                    <a class="recomendacao" id=musica1 target="_blank"></a>
+                    <a class="recomendacao" id=musica2 target="_blank"></a>
+                    <a class="recomendacao" id=musica3 target="_blank"></a>
+                    <a class="recomendacao" id=musica4 target="_blank"></a>
+                    <a class="recomendacao" id=musica5 target="_blank"></a>
+                    <a class="recomendacao" id=musica6 target="_blank"></a>
+                    <a class="recomendacao" id=musica7 target="_blank"></a>
+                    <a class="recomendacao" id=musica8 target="_blank"></a>
+                    <a class="recomendacao" id=musica9 target="_blank"></a>
+                </div>   
             </div>
-
-
-            <button id="botao">Clique recomendacao de alguma musica</button>
-            <div class="musica" id=musica0></div>
-            <div class="musica" id=musica1></div>
-            <div class="musica" id=musica2></div>
-            <div class="musica" id=musica3></div>
-            <div class="musica" id=musica4></div>
-            <div class="musica" id=musica5></div>
-            <div class="musica" id=musica6></div>
-            <div class="musica" id=musica7></div>
-            <div class="musica" id=musica8></div>
-            <div class="musica" id=musica9></div>
         </div>
     </main>
-
-    <footer></footer>
     <script src="script.js"></script>
 </body>
 </html>

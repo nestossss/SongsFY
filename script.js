@@ -50,8 +50,7 @@ async function search(){
 
 let pesquisa;
 const inputPesquisa = document.getElementById('txtBusca');
-const htmlMain = document.getElementById('principal');
-
+ 
 for (var i = 0; i <= 7; i++)
 {
   document.getElementById('resultado'+i).style.display = 'none';
@@ -59,16 +58,21 @@ for (var i = 0; i <= 7; i++)
 setInterval( ()=> {
   if(!inputPesquisa.value)
   {
+    document.getElementById('intro').style.display = 'flex';
     for (var i = 0; i <= 7; i++)
     {
       document.getElementById('resultado'+i).style.display = 'none';
     }
   }
-}, 500);
+}, 2000);
 
 inputPesquisa.addEventListener('input', async () => {
+    const divSelecionado= document.getElementById('selecionado');
     if (!inputPesquisa.value)
     {
+      document.getElementById('sem-resultado').style.display = 'none';
+      document.getElementById('intro').style.display = 'flex';
+      divSelecionado.style.display = 'none';
       for (var i = 0; i <= 7; i++)
       {
         document.getElementById('resultado'+i).style.display = 'none';
@@ -76,12 +80,14 @@ inputPesquisa.addEventListener('input', async () => {
     }
     else
     {
-      htmlMain.scrollIntoView({block: "start",  behavior: "smooth" });
+      document.getElementById('intro').style.display = 'none';
       pesquisa = inputPesquisa.value;
       await search();
+      var contRes = 0;
       for (var i = 0; i <= 7; i++)
       {
         try{
+          document.getElementById('sem-resultado').style.display = 'none';
           document.getElementById('resultado'+i).style.display = 'flex';
           var divResultado = document.getElementById('resultado'+i);
           divResultado.innerHTML = '';
@@ -90,17 +96,32 @@ inputPesquisa.addEventListener('input', async () => {
           fotoMusica.id = 'resultado-img'+i;
           fotoMusica.src = resultados['tracks'].items[i].album.images[2].url;
 
-          var nomeMusica = document.createElement('p');
-          nomeMusica.id = 'resultado-nome'+i;
-          nomeMusica.innerHTML = resultados['tracks'].items[i].name;
+          var nomeMusica = document.createElement('div');
+          nomeMusica.id = 'resultado-info'+i;
+          nomeMusica.classList = 'resultados-info';
+
+          var artists = [];
+          for (var j = 0; j < resultados['tracks'].items[i].artists.length; j++)
+          {
+            artists.push(resultados['tracks'].items[i].artists[j].name);
+          }
+
+          nomeMusica.innerHTML = `<p class="resultado-nome">${resultados['tracks'].items[i].name}</p>
+                                  <p class="resultado-artista">${artists}</p>`
 
           divResultado.appendChild(fotoMusica);
           divResultado.appendChild(nomeMusica);
         }
         catch{
           document.getElementById('resultado'+i).style.display = 'none';
+          contRes++;
         }
       }
+      if (contRes == 8)
+      {
+        document.getElementById('sem-resultado').style.display = 'flex';
+      }
+      divSelecionado.style.display = 'none';
     }
 });
 
@@ -110,32 +131,54 @@ var trackSeed;
 function escolha(selecionado){
   var track = resultados.tracks.items[selecionado];
   var artists = [];
-
-  const nomeSelecionado = document.getElementById('selecionado-nome');
+  let strArtists = " ";
+  
+  const divSelecionado= document.getElementById('selecionado');
+  const nomeSelecionado = document.getElementById('selecionado-titulo');
   const albumSelecionado = document.getElementById('selecionado-album');
   const artistasSelecionado = document.getElementById('selecionado-artistas');
+  const imgSelecionado = document.getElementById('selecionado-img');
+  const botaoLink = document.getElementById('link-spotify');
+
+  divSelecionado.style.display = 'flex';
+  for(var i = 4; i <= 7; i++)
+  {
+    var selecResultados = document.getElementById('resultado'+i);
+    selecResultados.style.display = 'none';
+  }
 
   trackSeed = track.id;
-  var trackInfo = [track.name, track.album.name, artists]
 
   for (var i = 0; i < track.artists.length; i++)
   {
     artists.push(track.artists[i].name);
+    strArtists += artists[i];
   }
-  nomeSelecionado.innerHTML = 'Nome: ' + track.name;
-  albumSelecionado.innerHTML = 'Álbum: ' + track.album.name;
-  artistasSelecionado.innerHTML = 'Artistas: ' + artists;
-
-  console.log(trackInfo);
-  console.log(track);
+  if (track.name.length <= 22){
+    nomeSelecionado.innerHTML = track.name;
+  }else{
+    nomeSelecionado.innerHTML = `<abbr title="${track.name}">${track.name}</abbr>`;
+  }
+  if (track.album.name.length <= 38){
+    albumSelecionado.innerHTML = track.album.name;
+  }else{
+    albumSelecionado.innerHTML = `<abbr title="${track.album.name}">${track.album.name}</abbr>`;
+  }
+  if (strArtists.length <= 38){
+    artistasSelecionado.innerHTML = artists;
+  }else{
+    artistasSelecionado.innerHTML = `<abbr title="${artists}">${artists}</abbr>`;
+  }
+  imgSelecionado.src = track.album.images[0].url;
+  botaoLink.href = track.external_urls.spotify;
 }
 
 /* -------- GET RECOMMENDATIONS --------*/
-
+var recommendationsList;
 async function recommendations(){
   try {
     const token = await getToken();
-    var apiUrlR = `https://api.spotify.com/v1/recommendations?seed_tracks=${trackSeed}`;
+    var apiUrlR = `https://api.spotify.com/v1/recommendations?limit=10&seed_tracks=${trackSeed}`;
     var authOptions = {
       headers: {
         'Authorization': 'Bearer ' + token
@@ -145,30 +188,48 @@ async function recommendations(){
     if (!response.ok) {
       throw new Error('Erro na solicitação da API do Spotify');
     }
-    const recommendations = await response.json();
-    console.log('FOR YOUUUUU:', recommendations);
-
-    for (var i = 0; i <=9; i++)
-    {
-      var divMusica = document.getElementById('musica'+i);
-      divMusica.innerHTML = recommendations.tracks[i].name;
-    }
+    recommendationsList = await response.json();
+    console.log('FOR YOUUUUU:', recommendationsList);
+    return recommendationsList;
 
   } catch (error) {
     console.error('erro recomendação', error);
   }
 }
 
-var botao = document.getElementById('botao');
-botao.addEventListener('click', () =>{
-  recommendations();
+var botao = document.getElementById('botao-recomendacao');
+botao.addEventListener('click', async () =>{
+  await recommendations();
+  console.log(recommendationsList);
+  for(var i = 0; i <= 9; i++){
+    
+    var recomendacao = document.getElementById('musica'+i);
+    var recomendacaoNome = recommendationsList.tracks[i].name;
+    var recomendacaoArtista = [];
+    for (var j = 0; j < recommendationsList.tracks[i].artists.length; j++)
+    {
+      recomendacaoArtista.push(recommendationsList.tracks[i].artists[j].name);
+    }
+    var recomendacaoImg = recommendationsList.tracks[i].album.images[2].url;
+
+    recomendacao.innerHTML = `<img src="${recomendacaoImg}">\n
+                              <div class="recomendacao-info">\n
+                                <p class="recomendacao-nome">${recomendacaoNome}</p>\n
+                                <p class="recomendacao-artista">${recomendacaoArtista}</p>\n
+                              </div>`
+    recomendacao.href = recommendationsList.tracks[i].external_urls.spotify;
+  }
+  const txtBusca = document.getElementById('txtBusca');
+  txtBusca.style.display = 'none';
+  const divBusca = document.getElementById('divBusca');
+  divBusca.style.display = 'none';
+  const listaRecomendacao = document.getElementById('lista-recomendacoes');
+  listaRecomendacao.style.display = 'flex';
+  const botaoVoltar = document.getElementById('voltar');
+  botaoVoltar.addEventListener('click', () => {
+    divBusca.style.display = 'grid';
+    listaRecomendacao.style.display ='none';
+    txtBusca.style.display = 'flex';
+    
+  })
 });
-
-/* ------------ sla meio q um raschunho  -------------*/
-
-/*
-  
-*/
-
-// colocar foto das musica,
-// se der tempo ver se da p diferenciar single de album
