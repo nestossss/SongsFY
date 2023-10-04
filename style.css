@@ -86,6 +86,7 @@ body{
     width: 100%;
     display: grid;
     column-gap: 2vw ;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
      'selecionado span'
      'selecionado span'
