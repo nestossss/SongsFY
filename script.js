@@ -5,6 +5,7 @@ var client_secret = '2420e0a7746742ca8b373fdbd9cfab2f';
 const credentials = `${client_id}:${client_secret}`;
 const base64Credentials = btoa(credentials);
 
+document.getElementById('divBusca').classList.add('divBuscaClass2');
 /* ---------- TOKEN DE ACESSO --------------*/
 
 async function getToken() {
@@ -73,6 +74,7 @@ inputPesquisa.addEventListener('input', async () => {
       document.getElementById('sem-resultado').style.display = 'none';
       document.getElementById('intro').style.display = 'flex';
       divSelecionado.style.display = 'none';
+      document.getElementById('divBusca').classList.add('divBuscaClass2');
       for (var i = 0; i <= 7; i++)
       {
         document.getElementById('resultado'+i).style.display = 'none';
@@ -87,6 +89,7 @@ inputPesquisa.addEventListener('input', async () => {
       for (var i = 0; i <= 7; i++)
       {
         try{
+
           document.getElementById('sem-resultado').style.display = 'none';
           document.getElementById('resultado'+i).style.display = 'flex';
           var divResultado = document.getElementById('resultado'+i);
@@ -122,6 +125,7 @@ inputPesquisa.addEventListener('input', async () => {
         document.getElementById('sem-resultado').style.display = 'flex';
       }
       divSelecionado.style.display = 'none';
+      document.getElementById('divBusca').classList.add('divBuscaClass2');
     }
 });
 
@@ -129,6 +133,7 @@ inputPesquisa.addEventListener('input', async () => {
 
 var trackSeed;
 function escolha(selecionado){
+  document.getElementById('divBusca').classList.remove('divBuscaClass2');
   var track = resultados.tracks.items[selecionado];
   var artists = [];
   let strArtists = " ";
@@ -233,3 +238,4 @@ botao.addEventListener('click', async () =>{
     
   })
 });
+

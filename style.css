@@ -31,7 +31,7 @@ header{
     align-items: center;
     background: #292929;
     height: 10vh;
-    min-height: 20px;
+    min-height: 60px;
 }
 h1{
     margin-left: 5%;
@@ -82,11 +82,10 @@ body{
 
 
 /*  ---------- GRID BUSCA ---------- */
-#divBusca{
+.divBuscaClass{
     width: 100%;
     display: grid;
     column-gap: 2vw ;
-    grid-template-columns: 1fr 1fr;
     grid-template-areas:
      'selecionado span'
      'selecionado span'
@@ -160,7 +159,7 @@ body{
 #selecionado-texto h2, #selecionado-texto h2 abbr{
     user-select:text;
     font-weight: 800;
-    width: 20vw;
+    width: 18vw;
     font-size: 1.4rem;
     overflow: hidden;
     text-overflow:ellipsis;
@@ -168,7 +167,7 @@ body{
 }
 #selecionado-texto p, #selecionado-texto p abbr{
     user-select:text;
-    width: 20vw;
+    width: 18vw;
     font-size: 0.85rem;
     overflow: hidden;
     text-overflow:ellipsis;
@@ -293,4 +292,82 @@ body{
 ::selection{
     color:#000000;
     background-color: #e6e6e6;
+}
+
+@media only screen and (max-width: 800px){
+    #txtBusca{
+        width: 40vw;
+    }
+    .divBuscaClass{
+        grid-template-columns: 1fr;
+        grid-template-rows:  4fr 1fr 1fr 1fr 1fr;
+        grid-template-areas:
+            'selecionado '
+            'span ';
+        margin-bottom: 5vw;
+    }
+    .divBuscaClass2{
+        grid-template-rows:  1fr 1fr 1fr 1fr 1fr;
+    }
+    #selecionado-img{
+        height: 8em;
+        border-radius: 6px;
+        margin-right: 5%;
+    }
+    #selecionado-texto{
+        padding: 0.4em 0em 0.4em 0em;
+        height: 6em;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: rgb(216, 216, 216);
+    }
+    #selecionado-texto h2, #selecionado-texto h2 abbr{
+        width: 36vw;
+        font-size: 1.4rem;
+    }
+    #selecionado-texto p, #selecionado-texto p abbr{
+        width: 36vw;
+        font-size: 0.85rem;
+    } 
+    .resultados img{
+        height: 3em;
+    }
+}
+
+@media only screen and (max-width: 700px){
+    #txtBusca{
+        width: 60vw;
+    }
+    #recomendacoes{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    #txtBusca{
+        width: 80vw;
+    }
+    .divBuscaClass{
+        margin-bottom: 5vw;
+        grid-template-rows:  3fr 1fr 1fr 1fr 1fr;
+    }
+    .divBuscaClass2{
+        grid-template-rows:  1fr 1fr 1fr 1fr 1fr;
+    }
+    .selecionado-botao{
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 400px){
+    .divBuscaClass{
+        grid-template-rows: 2.5fr 1fr 1fr 1fr 1fr;
+    }
+    .divBuscaClass2{
+        grid-template-rows:  1fr 1fr 1fr 1fr 1fr;
+    }
 }
