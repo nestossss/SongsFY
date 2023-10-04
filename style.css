@@ -257,7 +257,6 @@ body{
 #grid-recomendacao{
     display: grid;
     row-gap: 1em;
-    column-gap: 0.4em;
     grid-template-columns: 1fr 1fr;
 }
 .recomendacao{
@@ -306,6 +305,7 @@ body{
         grid-template-areas:
             'selecionado '
             'span ';
+        row-gap: 5vw;
         column-gap: 0.1em;
         margin-bottom: 5vw;
     }
