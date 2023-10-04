@@ -306,6 +306,7 @@ body{
         grid-template-areas:
             'selecionado '
             'span ';
+        column-gap: 0.1em;
         margin-bottom: 5vw;
     }
     .divBuscaClass2{
