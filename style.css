@@ -208,7 +208,7 @@ body{
     transition: 0.2s;
 }
 
-/*----- sem resuoltado ------*/
+/*----- sem resultado ------*/
 
 #sem-resultado{
     height: 100%;
@@ -225,6 +225,7 @@ body{
     font-size: 36px;
     margin-top: 1.8em;
     font-weight: 400;
+    text-align: center;
     color: #bdbdbd;
 }
 
@@ -349,6 +350,10 @@ body{
 }
 
 @media only screen and (max-width: 600px){
+    #sem-resultado img{
+        margin-top: 1em;
+        width: 30%;
+    }
     #txtBusca{
         width: 80vw;
     }
